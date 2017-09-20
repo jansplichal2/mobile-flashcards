@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, Button} from 'react-native';
 import styled from 'styled-components/native';
-import {connect} from 'react-redux';
 
 const MainView = styled.View`
   flex:1;
@@ -45,10 +44,14 @@ class DeckView extends Component {
                     {3} cards
                 </SmallText>
                 <ButtonView>
-                    <Button title="Add card" onPress={() => {navigate('NewCard')}}/>
+                    <Button title="Add card" onPress={() => {
+                        navigate('NewCard', {title})
+                    }}/>
                 </ButtonView>
                 <ButtonView>
-                    <Button title="Start quiz" onPress={() => {navigate('NewCard')}}/>
+                    <Button title="Start quiz" onPress={() => {
+                        navigate('Quiz', {title})
+                    }}/>
                 </ButtonView>
             </MainView>
         );
