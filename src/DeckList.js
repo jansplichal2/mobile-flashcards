@@ -23,7 +23,7 @@ const LargerText = styled.Text`
 
 class DeckList extends Component {
     static navigationOptions = {
-        title: 'Decks'
+        headerMode: 'none'
     };
 
     constructor(props){
@@ -44,7 +44,7 @@ class DeckList extends Component {
 
     selectDeck(title){
         const {navigate} = this.props.navigation;
-
+        navigate('DeckView', {title});
     }
 
     render() {

@@ -4,32 +4,32 @@ import styled from 'styled-components/native';
 
 const MainView = styled.View`
     flex: 1;
-    align-items: center;
-    justify-content: center;
+    align-items: stretch;
+    
 `;
 
 const TitleText = styled.Text`
   font-size: 26px;
-  padding: 20px;
+  padding: 40px;
   text-align: center;
 `;
 
 const StyledInput = styled.TextInput`
-  height: 40px;
-  width: 200px;
+  height: 50px;
 `;
 
-const StyledButton = styled.Button`
-  height: 20px;
-  width: 400px;
+const StyledInputView = styled.View`
+  margin: 10px 40px;
 `;
 
-const CenteredView = styled.View`
-  align-items: center;
-  margin-top: 30px;
+const StyledButtonView = styled.View`
+    margin-top: 20px;
+    align-self: center;
 `;
 
-//border: solid 1px black;
+const CenteredView = styled.View`   
+`;
+
 
 class Deck extends Component {
 
@@ -39,6 +39,7 @@ class Deck extends Component {
 
     createNewDeck(event){
         console.log(event);
+        alert('Submitting');
     }
 
     render() {
@@ -48,13 +49,13 @@ class Deck extends Component {
                     <CenteredView>
                         <TitleText>What is the title of your new deck?</TitleText>
                     </CenteredView>
-                    <CenteredView>
+                    <StyledInputView>
                         <StyledInput placeholder="Deck title"
                                    onChangeText={(text) => this.setState({text})}/>
-                    </CenteredView>
-                    <CenteredView>
-                        <StyledButton title="Submit" onPress={this.createNewDeck}/>
-                    </CenteredView>
+                    </StyledInputView>
+                    <StyledButtonView>
+                        <Button title="Submit" onPress={this.createNewDeck}/>
+                    </StyledButtonView>
                 </View>
             </MainView>
         );
