@@ -24,31 +24,31 @@ const ButtonView = styled.View`
   margin: 0 50px;
 `;
 
-class Deck extends Component {
+class DeckView extends Component {
 
     static navigationOptions = ({navigation}) => {
         return {
-            title: <Text>{navigation.state.params.title}</Text>,
+            title: `${navigation.state.params.title}`,
         };
-
     };
 
     render() {
-        const {params} = this.props.navigation.state;
+        const {navigate} = this.props.navigation;
+        const {title} = this.props.navigation.state.params;
 
         return (
             <MainView>
                 <LargeText>
-                    {params.title}
+                    {title}
                 </LargeText>
                 <SmallText>
                     {3} cards
                 </SmallText>
                 <ButtonView>
-                    <Button title="Add card" onPress={() => alert('Adding')}/>
+                    <Button title="Add card" onPress={() => {navigate('NewCard')}}/>
                 </ButtonView>
                 <ButtonView>
-                    <Button title="Start quiz" onPress={() => alert('Starting')}/>
+                    <Button title="Start quiz" onPress={() => {navigate('NewCard')}}/>
                 </ButtonView>
             </MainView>
         );
@@ -56,4 +56,4 @@ class Deck extends Component {
 }
 
 
-export default connect()(Deck);
+export default DeckView;
