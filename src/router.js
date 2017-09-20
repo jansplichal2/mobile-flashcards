@@ -1,10 +1,10 @@
-import { StackNavigator } from 'react-navigation';
+import { TabNavigator } from 'react-navigation';
 import DeckList from './DeckList';
-import Deck from './Deck';
+import NewDeck from './NewDeck';
 
-const Router = StackNavigator({
+const Router = TabNavigator({
     Home: { screen: DeckList },
-    Next: { screen: Deck },
+    Next: { screen: NewDeck },
 });
 
 export default Router;

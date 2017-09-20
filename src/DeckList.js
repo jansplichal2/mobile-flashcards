@@ -1,32 +1,76 @@
 import React, {Component} from 'react';
-import {View, Text, Button, TouchableOpacity} from 'react-native';
+import {View, Text, FlatList, TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
-import {Entypo} from '@expo/vector-icons';
+import {connect} from 'react-redux';
+import _ from 'lodash';
 
-
-const BorderedView = styled.View`
+const DeckView = styled.TouchableOpacity`
     height: 100px;
-    border: black 1px solid;
     padding: 10px;
-    flex: 1;
+    align-items: center;
+    justify-content: center;
+    border-bottom-width: 1px;
+    border-bottom-color: black;
 `;
 
-class DeckList extends Component {
+const SmallText = styled.Text`
+  font-size: 11px;
+`;
+const LargerText = styled.Text`
+  font-size: 18px;
+`;
 
+
+class DeckList extends Component {
     static navigationOptions = {
         title: 'Decks'
     };
 
-    render() {
+    constructor(props){
+        super(props);
 
+        this.renderDeck = this.renderDeck.bind(this);
+        this.selectDeck = this.selectDeck.bind(this);
+    }
+
+    renderDeck({item}) {
+        return (
+            <DeckView onPress={() => this.selectDeck(item.title)}>
+                <LargerText>{item.title}</LargerText>
+                <SmallText>{item.questionNo} cards</SmallText>
+            </DeckView>
+        );
+    }
+
+    selectDeck(title){
         const {navigate} = this.props.navigation;
 
+    }
+
+    render() {
+
+        const decks = _.map(this.props.decks, deck => {
+            return {
+                title : deck.title,
+                questionNo: _.size(deck.questions)
+            }
+        });
+
         return (
-            <BorderedView>
-                <Text>Deck list</Text>
-            </BorderedView>
+            <FlatList
+                style={{marginTop: 30}}
+                data={decks}
+                renderItem={this.renderDeck}
+                keyExtractor={item => item.title}
+            />
         );
     }
 }
 
-export default DeckList;
+const mapStateToProps = (state) => {
+    return {
+        decks: state.decks
+    };
+};
+
+export default connect(mapStateToProps)(DeckList);

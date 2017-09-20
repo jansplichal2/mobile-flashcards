@@ -25,6 +25,23 @@ const decks = {
                     "answer": "The combination of a function and the lexical environment within which that function was declared."
                 }
             ]
+        },
+        "Java": {
+            "title": "Java",
+            "questions": [
+                {
+                    "question": "What is a class?",
+                    "answer": "Mass."
+                },
+                {
+                    "question": "What is an annotation?",
+                    "answer": "Hannotation."
+                },
+                {
+                    "question": "What is a contructor?",
+                    "answer": "Monstructor."
+                }
+            ]
         }
     }
 };
