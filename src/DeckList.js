@@ -1,76 +1,87 @@
 import React, {Component} from 'react';
-import {View, Text, FlatList, TouchableOpacity} from 'react-native';
-import styled from 'styled-components/native';
+import {
+  Text,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet
+} from 'react-native';
 import {connect} from 'react-redux';
 import _ from 'lodash';
 
-const DeckView = styled.TouchableOpacity`
-    height: 100px;
-    padding: 10px;
-    align-items: center;
-    justify-content: center;
-    border-bottom-width: 1px;
-    border-bottom-color: black;
-`;
-
-const SmallText = styled.Text`
-  font-size: 11px;
-`;
-const LargerText = styled.Text`
-  font-size: 18px;
-`;
-
 
 class DeckList extends Component {
-    static navigationOptions = {
-        headerMode: 'none'
-    };
+  static navigationOptions = {
+    title: 'Decks'
+  };
 
-    constructor(props){
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.renderDeck = this.renderDeck.bind(this);
-        this.selectDeck = this.selectDeck.bind(this);
-    }
+    this.renderDeck = this.renderDeck.bind(this);
+    this.selectDeck = this.selectDeck.bind(this);
+  }
 
-    renderDeck({item}) {
-        return (
-            <DeckView onPress={() => this.selectDeck(item.title)}>
-                <LargerText>{item.title}</LargerText>
-                <SmallText>{item.questionNo} cards</SmallText>
-            </DeckView>
-        );
-    }
+  renderDeck({item}) {
+    const {largeText, smallText, deck} = styles;
 
-    selectDeck(title){
-        const {navigate} = this.props.navigation;
-        navigate('DeckView', {title});
-    }
+    return (
+      <TouchableOpacity style={deck} onPress={() => this.selectDeck(item.title)}>
+        <Text style={largeText}>{item.title}</Text>
+        <Text style={smallText}>{item.questionNo} cards</Text>
+      </TouchableOpacity>
+    );
+  }
 
-    render() {
+  selectDeck(title) {
+    const {navigate} = this.props.navigation;
+    navigate('DeckView', {title});
+  }
 
-        const decks = _.map(this.props.decks, deck => {
-            return {
-                title : deck.title,
-                questionNo: _.size(deck.questions)
-            }
-        });
+  render() {
+    const decks = _.map(this.props.decks, deck => {
+      return {
+        title: deck.title,
+        questionNo: _.size(deck.questions)
+      }
+    });
 
-        return (
-            <FlatList
-                style={{marginTop: 30}}
-                data={decks}
-                renderItem={this.renderDeck}
-                keyExtractor={item => item.title}
-            />
-        );
-    }
+    return (
+      <FlatList
+        style={styles.deckList}
+        data={decks}
+        renderItem={this.renderDeck}
+        keyExtractor={item => item.title}
+      />
+    );
+  }
 }
 
+const styles = StyleSheet.create({
+  largeText: {
+    fontSize: 18
+  },
+  smallText: {
+    fontSize: 11
+  },
+  deck: {
+    height: 100,
+    padding: 10,
+    marginLeft: 15,
+    marginRight: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: 'gray',
+  },
+  deckList: {
+    marginTop: 20
+  }
+});
+
 const mapStateToProps = (state) => {
-    return {
-        decks: state.decks
-    };
+  return {
+    decks: state.decks
+  };
 };
 
 export default connect(mapStateToProps)(DeckList);

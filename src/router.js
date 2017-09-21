@@ -1,7 +1,7 @@
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import DeckList from './DeckList';
 import NewDeck from './NewDeck';
-import DeckView from './DeckView';
+import DeckView from './Deck';
 import NewCard from './NewCard';
 import Quiz from './Quiz';
 

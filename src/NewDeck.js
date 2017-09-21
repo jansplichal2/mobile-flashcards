@@ -1,65 +1,63 @@
 import React, {Component} from 'react';
-import {View, Text, TextInput, Button} from 'react-native';
-import styled from 'styled-components/native';
+import {
+  View,
+  Text,
+  StyleSheet
+} from 'react-native';
 
-const MainView = styled.View`
-    flex: 1;
-    align-items: stretch;
-    
-`;
-
-const TitleText = styled.Text`
-  font-size: 26px;
-  padding: 40px;
-  text-align: center;
-`;
-
-const StyledInput = styled.TextInput`
-  height: 50px;
-`;
-
-const StyledInputView = styled.View`
-  margin: 10px 40px;
-`;
-
-const StyledButtonView = styled.View`
-    margin-top: 20px;
-    align-self: center;
-`;
-
-const CenteredView = styled.View`   
-`;
-
+import {
+  FormLabel,
+  FormInput,
+  Button
+} from 'react-native-elements';
 
 class Deck extends Component {
 
-    static navigationOptions = {
-        title: 'New Deck'
-    };
+  static navigationOptions = {
+    title: 'New Deck'
+  };
 
-    createNewDeck(event){
-        console.log(event);
-        alert('Submitting');
-    }
+  createNewDeck(event) {
+    alert('Submitting');
+  }
 
-    render() {
-        return (
-            <MainView>
-                <View>
-                    <CenteredView>
-                        <TitleText>What is the title of your new deck?</TitleText>
-                    </CenteredView>
-                    <StyledInputView>
-                        <StyledInput placeholder="Deck title"
-                                   onChangeText={(text) => this.setState({text})}/>
-                    </StyledInputView>
-                    <StyledButtonView>
-                        <Button title="Submit" onPress={this.createNewDeck}/>
-                    </StyledButtonView>
-                </View>
-            </MainView>
-        );
-    }
+  render() {
+    const {container, title, inputContainer} = styles;
+
+    return (
+      <View style={container}>
+        <View>
+          <View>
+            <Text style={title}>What is the title of your new deck?</Text>
+          </View>
+          <View style={inputContainer}>
+            <FormLabel>Name your deck</FormLabel>
+            <FormInput onChangeText={(text) => console.log(text)}/>
+          </View>
+          <View style={[inputContainer,{marginTop:30}]}>
+            <Button title="Submit" onPress={this.createNewDeck}/>
+          </View>
+        </View>
+      </View>
+    );
+  }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'stretch'
+  },
+  title: {
+    fontSize: 26,
+    padding: 40,
+    textAlign: 'center'
+  },
+  inputContainer: {
+    marginTop: 0,
+    marginLeft: 40,
+    marginRight: 40
+  }
+});
 
 export default Deck;
