@@ -11,14 +11,21 @@ import {
   Button
 } from 'react-native-elements';
 
+import {saveDeckTitle, createStore, getDecks, getDeck} from './storage';
+
 class Deck extends Component {
 
   static navigationOptions = {
     title: 'New Deck'
   };
 
+  state = {
+    title: ''
+  };
+
   createNewDeck(event) {
-    alert('Submitting');
+    //saveDeckTitle(this.state.title).then(() => alert('Saved'))
+    createStore().then(() => getDeck('JavaScript')).then(result => alert(JSON.stringify(result)));
   }
 
   render() {
@@ -32,10 +39,10 @@ class Deck extends Component {
           </View>
           <View style={inputContainer}>
             <FormLabel>Name your deck</FormLabel>
-            <FormInput onChangeText={(text) => console.log(text)}/>
+            <FormInput onChangeText={(title) => this.setState({title})}/>
           </View>
           <View style={[inputContainer,{marginTop:30}]}>
-            <Button title="Submit" onPress={this.createNewDeck}/>
+            <Button title="Submit" onPress={this.createNewDeck.bind(this)}/>
           </View>
         </View>
       </View>

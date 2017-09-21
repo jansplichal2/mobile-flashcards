@@ -2,7 +2,7 @@ import {createStore} from 'redux';
 import reducer from './reducer';
 
 
-const decks = {
+export const decks = {
     "decks": {
         "React": {
             "title": "React",

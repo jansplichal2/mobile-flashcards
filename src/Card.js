@@ -14,10 +14,12 @@ class Card extends Component {
 
     return (
       <View style={container}>
-        <Text style={title}>Does React Native work with android?</Text>
-        <TouchableOpacity onPress={() => alert('Flip')}>
-          <Text style={linkText}>Answer</Text>
-        </TouchableOpacity>
+        <View style={{flex:1}}>
+          <Text style={title}>Does React Native work with android?</Text>
+          <TouchableOpacity onPress={() => alert('Flip')}>
+            <Text style={linkText}>Answer</Text>
+          </TouchableOpacity>
+        </View>
         <View style={buttonContainer}>
           <Button backgroundColor="green"
                   icon={{name: 'thumbs-o-up', type: 'font-awesome'}}
@@ -46,13 +48,14 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   linkText: {
-    color: 'red'
+    color: 'red',
+    textAlign: 'center'
   },
   buttonContainer: {
-    flex: 1,
+    flex: 2,
     borderWidth: 0,
     alignSelf: 'stretch',
-    marginTop: 70,
+    marginTop: 0,
     marginLeft: 40,
     marginRight: 40
   }
