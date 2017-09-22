@@ -38,7 +38,7 @@ export const decks = {
                     "answer": "Hannotation."
                 },
                 {
-                    "question": "What is a contructor?",
+                    "question": "What is a constructor?",
                     "answer": "Monstructor."
                 }
             ]

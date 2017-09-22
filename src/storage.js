@@ -8,7 +8,7 @@ export const createStore = async () => {
 };
 
 export const getDecks = async () => {
-  const rawDecks = AsyncStorage.getItem(STORAGE_KEY);
+  const rawDecks = await AsyncStorage.getItem(STORAGE_KEY);
   const decks = JSON.parse(rawDecks);
   return decks;
 };
@@ -19,16 +19,20 @@ export const getDeck = async title => {
 };
 
 export const saveDeckTitle = async title => {
-  const result = await AsyncStorage.mergeItem(STORAGE_KEY,
+  await AsyncStorage.mergeItem(STORAGE_KEY,
     JSON.stringify({
+     decks:{
       [title]: {
-        title
+        title,
+        questions:[]
       }
-    }));
-  console.log(result);
-  return result;
+    }}));
 };
 
-export const addCardToDeck = async (title, card) => {
+export const addCardToDeck = async (title, {question, answer}) => {
+  const decks = await getDecks();
+  const deck = decks["decks"][title];
+  deck["questions"].append({question, answer});
 
+  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(decks));
 };

@@ -11,7 +11,7 @@ import {
   Button
 } from 'react-native-elements';
 
-import {saveDeckTitle, createStore, getDecks, getDeck} from './storage';
+import {saveDeckTitle, createStore, getDecks, getDeck, addCardToDeck} from './storage';
 
 class Deck extends Component {
 
@@ -25,7 +25,10 @@ class Deck extends Component {
 
   createNewDeck(event) {
     //saveDeckTitle(this.state.title).then(() => alert('Saved'))
-    createStore().then(() => getDeck('JavaScript')).then(result => alert(JSON.stringify(result)));
+    createStore()
+      .then(() => addCardToDeck(this.state.title, {}))
+      .then(() => getDeck(this.state.title))
+      .then(result => alert(JSON.stringify(result)));
   }
 
   render() {
