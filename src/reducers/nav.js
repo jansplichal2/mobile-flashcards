@@ -1,32 +1,32 @@
 import {NavigationActions} from 'react-navigation';
-import {Router} from '../router';
+import {MainTab} from '../router';
+import {GET_DECK} from '../types';
 
-const initialAction = Router.router.getActionForPathAndParams('Home');
-const initialNavState = Router.router.getStateForAction(
+const initialAction = MainTab.router.getActionForPathAndParams('NewDeck');
+const initialNavState = MainTab.router.getStateForAction(
   initialAction
 );
 
 function nav(state = initialNavState, action) {
     let nextState;
     switch (action.type) {
-        case 'Login':
-            nextState = Router.router.getStateForAction(
+        case '@@redux/INIT':
+            nextState = MainTab.router.getStateForAction(
               NavigationActions.back(),
               state
             );
             break;
-        case 'DeckView':
-            nextState = Router.router.getStateForAction(
-              NavigationActions.navigate({routeName: 'DeckView', params: {title: action.title}}),
+        case GET_DECK:
+            nextState = MainTab.router.getStateForAction(
+              NavigationActions.navigate({routeName: action.route, params: {title: action.title}}),
               state
             );
             break;
         default:
-            nextState = Router.router.getStateForAction(action, state);
+            nextState = MainTab.router.getStateForAction(action, state);
             break;
     }
 
-    // Simply return the original `state` if `nextState` is null or undefined.
     return nextState || state;
 }
 

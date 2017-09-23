@@ -1,12 +1,16 @@
 import React, {Component} from 'react';
 import {
     Text,
+    View,
     FlatList,
     TouchableOpacity,
     StyleSheet
 } from 'react-native';
+import {NavigationActions} from 'react-navigation';
 import {connect} from 'react-redux';
 import _ from 'lodash';
+
+import {GET_DECK} from './types';
 
 
 class DeckList extends Component {
@@ -21,6 +25,10 @@ class DeckList extends Component {
         this.selectDeck = this.selectDeck.bind(this);
     }
 
+    componentDidMount(){
+        //this.props.dispatch({type: 'Navigation/BACK'});
+    }
+
     renderDeck({item}) {
         const {largeText, smallText, deck} = styles;
 
@@ -33,7 +41,7 @@ class DeckList extends Component {
     }
 
     selectDeck(title) {
-        this.props.dispatch({type: "DeckView", title});
+        this.props.dispatch({type: GET_DECK, route: 'DeckView', title});
     }
 
     render() {
@@ -43,6 +51,18 @@ class DeckList extends Component {
                 questionNo: _.size(deck.questions)
             }
         });
+
+        if (_.isEmpty(decks)) {
+            return (
+              <View style={styles.container}>
+                  <Text>No decks available...</Text>
+                  <TouchableOpacity style={styles.button}  onPress={() =>
+                    this.props.dispatch(NavigationActions.navigate({ routeName: 'NewDeck'})) }>
+                        <Text style={styles.buttonText}>Create new deck ...</Text>
+                  </TouchableOpacity>
+              </View>
+            );
+        }
 
         return (
           <FlatList
@@ -74,6 +94,17 @@ const styles = StyleSheet.create({
     },
     deckList: {
         marginTop: 20
+    },
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    button: {
+        marginTop: 15
+    },
+    buttonText: {
+        color: 'blue'
     }
 });
 
