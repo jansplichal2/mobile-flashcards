@@ -38,7 +38,7 @@ export const saveDeckTitle = async title => {
 export const addCardToDeck = async (title, {question, answer}) => {
     const decks = await getDecks();
     const deck = decks["decks"][title];
-    deck["questions"].append({question, answer});
+    deck["questions"].push({question, answer});
 
     await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(decks));
     return decks["decks"][title];

@@ -29,8 +29,8 @@ class Deck extends Component {
     }
 
     createNewDeck(event) {
-        this.setState({title: ''});
         this.props.addNewDeck(this.state.title);
+        this.setState({title: ''});
     }
 
     render() {

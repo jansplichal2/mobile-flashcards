@@ -1,6 +1,6 @@
 import {NavigationActions} from 'react-navigation';
 import {MainTab} from '../router';
-import {GET_DECK, ADD_NEW_DECK} from '../actions/types';
+import {GET_DECK, ADD_NEW_DECK, ADD_NEW_CARD} from '../actions/types';
 
 const initialAction = MainTab.router.getActionForPathAndParams('DeckList');
 const initialNavState = MainTab.router.getStateForAction(
@@ -11,6 +11,7 @@ function nav(state = initialNavState, action) {
     let nextState;
     switch (action.type) {
         case '@@redux/INIT':
+        case ADD_NEW_CARD:
             nextState = MainTab.router.getStateForAction(
               NavigationActions.back(),
               state
