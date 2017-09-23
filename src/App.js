@@ -1,23 +1,26 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {Provider} from 'react-redux';
-import styled from 'styled-components/native';
+
 import store from './store';
 import Router from './router';
 
-const MainView = styled.View`
-    flex: 1
-`;
 
 const Main = () => {
     return (
         <Provider store={store}>
-            <MainView>
+            <View style={styles.container}>
                 <Router/>
-            </MainView>
+            </View>
         </Provider>
     );
 };
+
+const styles = StyleSheet.create({
+   container: {
+       flex: 1
+   }
+});
 
 export default Main;
 

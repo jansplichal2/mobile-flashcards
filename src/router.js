@@ -6,7 +6,6 @@ import NewCard from './NewCard';
 import Quiz from './Quiz';
 
 
-
 const MainTab = TabNavigator({
     DeckList: { screen: DeckList },
     NewDeck: { screen: NewDeck },
