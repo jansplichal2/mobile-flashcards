@@ -11,7 +11,8 @@ import {
     Button
 } from 'react-native-elements';
 
-import {saveDeckTitle, createStore, getDecks, getDeck, addCardToDeck} from './storage';
+import {connect} from 'react-redux';
+import {addNewDeck} from './actions/decks';
 
 class Deck extends Component {
 
@@ -19,18 +20,17 @@ class Deck extends Component {
         title: 'New Deck'
     };
 
-    state = {
-        title: ''
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: ''
+        };
+        this.createNewDeck = this.createNewDeck.bind(this);
+    }
 
     createNewDeck(event) {
-        //saveDeckTitle(this.state.title).then(() => alert('Saved'))
-        // createStore()
-        //   .then(() => addCardToDeck(this.state.title, {}))
-        //   .then(() => getDeck(this.state.title))
-        //   .then(result => alert(JSON.stringify(result)));
-        const {navigate} = this.props.navigation;
-        navigate('Home');
+        this.setState({title: ''});
+        this.props.addNewDeck(this.state.title);
     }
 
     render() {
@@ -44,10 +44,10 @@ class Deck extends Component {
                   </View>
                   <View style={inputContainer}>
                       <FormLabel>Name your deck</FormLabel>
-                      <FormInput onChangeText={(title) => this.setState({title})}/>
+                      <FormInput value={this.state.title} onChangeText={(title) => this.setState({title})}/>
                   </View>
                   <View style={[inputContainer, {marginTop: 30}]}>
-                      <Button title="Submit" onPress={this.createNewDeck.bind(this)}/>
+                      <Button title="Submit" onPress={this.createNewDeck}/>
                   </View>
               </View>
           </View>
@@ -72,4 +72,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Deck;
+export default connect(null, {addNewDeck})(Deck);

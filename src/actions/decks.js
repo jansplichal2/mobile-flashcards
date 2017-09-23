@@ -1,4 +1,4 @@
-import {GET_DECK, GET_ALL_DECKS} from './types';
+import {GET_DECK, GET_ALL_DECKS, ADD_NEW_DECK} from './types';
 import * as storage from '../storage';
 
 
@@ -13,6 +13,12 @@ const getDeck = (deck, route) => ({
     deck
 });
 
+const newDeck = (title, deck) => ({
+    type: ADD_NEW_DECK,
+    title,
+    deck
+});
+
 
 export const fetchAllDecks = () => dispatch => {
     return storage
@@ -24,4 +30,10 @@ export const fetchDeck = (title, route) => dispatch => {
     return storage
       .getDeck(title)
       .then(deck => dispatch(getDeck(deck, route)));
+};
+
+export const addNewDeck = title => dispatch => {
+    return storage
+      .saveDeckTitle(title)
+      .then(deck => dispatch(newDeck(title, deck)));
 };

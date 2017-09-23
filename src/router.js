@@ -42,4 +42,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(RouterWithNavigationState);
-//export default MainTab;
