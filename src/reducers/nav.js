@@ -1,8 +1,8 @@
 import {NavigationActions} from 'react-navigation';
 import {MainTab} from '../router';
-import {GET_DECK} from '../types';
+import {GET_DECK} from '../actions/types';
 
-const initialAction = MainTab.router.getActionForPathAndParams('NewDeck');
+const initialAction = MainTab.router.getActionForPathAndParams('DeckList');
 const initialNavState = MainTab.router.getStateForAction(
   initialAction
 );
@@ -18,7 +18,7 @@ function nav(state = initialNavState, action) {
             break;
         case GET_DECK:
             nextState = MainTab.router.getStateForAction(
-              NavigationActions.navigate({routeName: action.route, params: {title: action.title}}),
+              NavigationActions.navigate({routeName: action.route, params: {title: action.deck.title}}),
               state
             );
             break;

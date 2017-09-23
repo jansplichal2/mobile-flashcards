@@ -10,7 +10,7 @@ import {NavigationActions} from 'react-navigation';
 import {connect} from 'react-redux';
 import _ from 'lodash';
 
-import {GET_DECK} from './types';
+import {fetchAllDecks, fetchDeck} from './actions/decks';
 
 
 class DeckList extends Component {
@@ -26,7 +26,7 @@ class DeckList extends Component {
     }
 
     componentDidMount(){
-        //this.props.dispatch({type: 'Navigation/BACK'});
+        this.props.fetchAllDecks();
     }
 
     renderDeck({item}) {
@@ -41,7 +41,7 @@ class DeckList extends Component {
     }
 
     selectDeck(title) {
-        this.props.dispatch({type: GET_DECK, route: 'DeckView', title});
+        this.props.fetchDeck(title, 'DeckView');
     }
 
     render() {
@@ -108,10 +108,10 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return {
         decks: state.decks
     };
 };
 
-export default connect(mapStateToProps)(DeckList);
+export default connect(mapStateToProps, {fetchAllDecks, fetchDeck})(DeckList);

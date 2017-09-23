@@ -1,6 +1,7 @@
-import {createStore} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
 import rootReducer from './reducers';
-
+import * as storage from './storage';
 
 export const decks = {
     "decks": {
@@ -46,9 +47,11 @@ export const decks = {
     }
 };
 
+storage.createStore();
 const store = createStore(
     rootReducer,
-    decks
+    {},
+    applyMiddleware(thunk)
 );
 
 export default store;
