@@ -1,5 +1,7 @@
 import {combineReducers} from 'redux';
+import nav from './nav';
 
 export default combineReducers({
-    decks: (state = {}) => ( state )
+    nav,
+    decks: (state = {}) => ( state ),
 });

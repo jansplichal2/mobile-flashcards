@@ -1,5 +1,5 @@
 import {createStore} from 'redux';
-import reducer from './reducer';
+import rootReducer from './reducers';
 
 
 export const decks = {
@@ -47,7 +47,7 @@ export const decks = {
 };
 
 const store = createStore(
-    reducer,
+    rootReducer,
     decks
 );
 
