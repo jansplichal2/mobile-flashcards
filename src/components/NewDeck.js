@@ -13,7 +13,7 @@ import {
 } from 'react-native-elements';
 
 import {connect} from 'react-redux';
-import {addNewDeck} from './actions/decks';
+import {addNewDeck} from '../actions/decks';
 
 class Deck extends Component {
 

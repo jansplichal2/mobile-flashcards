@@ -2,8 +2,8 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Provider} from 'react-redux';
 
-import store from './store';
-import Router from './router';
+import store from '../store';
+import Router from '../router';
 
 
 const Main = () => {

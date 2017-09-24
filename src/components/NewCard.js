@@ -10,7 +10,7 @@ import {
     Button
 } from 'react-native-elements';
 import {connect} from 'react-redux';
-import {saveCard} from './actions/cards'
+import {saveCard} from '../actions/cards'
 
 class NewCard extends Component {
 

@@ -8,11 +8,11 @@ import {
     addNavigationHelpers
 } from 'react-navigation';
 
-import DeckView from './Deck';
-import DeckList from './DeckList';
-import NewCard from './NewCard';
-import NewDeck from './NewDeck';
-import Quiz from './Quiz';
+import DeckView from './components/Deck';
+import DeckList from './components/DeckList';
+import NewCard from './components/NewCard';
+import NewDeck from './components/NewDeck';
+import Quiz from './components/Quiz';
 
 const Router = StackNavigator({
     DeckList: { screen: DeckList },

@@ -10,7 +10,7 @@ import {NavigationActions} from 'react-navigation';
 import {connect} from 'react-redux';
 import _ from 'lodash';
 
-import {fetchAllDecks, fetchDeck} from './actions/decks';
+import {fetchAllDecks, fetchDeck} from '../actions/decks';
 
 
 class DeckList extends Component {
