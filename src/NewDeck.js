@@ -8,6 +8,7 @@ import {
 import {
     FormLabel,
     FormInput,
+    FormValidationMessage,
     Button
 } from 'react-native-elements';
 
@@ -23,14 +24,26 @@ class Deck extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: ''
+            title: '',
+            error: ''
         };
         this.createNewDeck = this.createNewDeck.bind(this);
     }
 
+    componentWillReceiveProps(nextProps){
+        this.setState({error: ''});
+    }
+
     createNewDeck(event) {
-        this.props.addNewDeck(this.state.title);
-        this.setState({title: ''});
+        const {title} = this.state;
+
+        if(!title){
+            this.setState({error: 'Deck name is required!'});
+            return;
+        }
+
+        this.props.addNewDeck(title);
+        this.setState({title: '', error: ''});
     }
 
     render() {
@@ -45,6 +58,9 @@ class Deck extends Component {
                   <View style={inputContainer}>
                       <FormLabel>Name your deck</FormLabel>
                       <FormInput value={this.state.title} onChangeText={(title) => this.setState({title})}/>
+                      <FormValidationMessage>
+                          {this.state.error}
+                      </FormValidationMessage>
                   </View>
                   <View style={[inputContainer, {marginTop: 30}]}>
                       <Button title="Submit" onPress={this.createNewDeck}/>

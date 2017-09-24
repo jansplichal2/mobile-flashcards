@@ -12,6 +12,7 @@ function nav(state = initialNavState, action) {
     switch (action.type) {
         case '@@redux/INIT':
         case ADD_NEW_CARD:
+        case ADD_NEW_DECK:
             nextState = MainTab.router.getStateForAction(
               NavigationActions.back(),
               state
@@ -20,12 +21,6 @@ function nav(state = initialNavState, action) {
         case GET_DECK:
             nextState = MainTab.router.getStateForAction(
               NavigationActions.navigate({routeName: action.route, params: {title: action.deck.title}}),
-              state
-            );
-            break;
-        case ADD_NEW_DECK:
-            nextState = MainTab.router.getStateForAction(
-              NavigationActions.navigate({routeName: 'DeckList'}),
               state
             );
             break;
