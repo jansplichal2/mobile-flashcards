@@ -31,7 +31,7 @@ class Card extends Component {
     }
 
     flipCard(direction) {
-
+        console.log('Flipping ', direction);
         if (direction === 'front') {
             Animated.spring(this.animatedValue, {
                 toValue: 180,
@@ -47,6 +47,18 @@ class Card extends Component {
         }
 
     }
+
+    renderSummary(summary) {
+        const {correct, incorrect} = summary;
+        return (
+          <View>
+              <Text>Correct: {correct}</Text>
+              <Text>Wrong: {incorrect}</Text>
+              <Text>Success rate: {+(100 * (correct / (correct + incorrect))).toFixed(2)}%</Text>
+          </View>
+        );
+    }
+
 
     render() {
         const {
@@ -70,28 +82,39 @@ class Card extends Component {
             ]
         };
 
+        const {question, onCorrect, onIncorrect, showSummary, summary} = this.props;
+
         return (
           <View style={container}>
-              <Animated.View style={[frontAnimatedStyle, flipCard]}>
-                  <Text style={title}>Does React Native work with android?</Text>
-                  <TouchableOpacity onPress={() => this.flipCard('front')}>
-                      <Text style={linkText}>Answer</Text>
-                  </TouchableOpacity>
-              </Animated.View>
-              <Animated.View style={[backAnimatedStyle, flipCard, flipCardBack]}>
-                  <Text style={title}>Yes</Text>
-                  <TouchableOpacity onPress={() => this.flipCard('back')}>
-                      <Text style={linkText}>Question</Text>
-                  </TouchableOpacity>
-              </Animated.View>
-              <View style={buttonContainer}>
-                  <Button backgroundColor="green"
-                          icon={{name: 'thumbs-o-up', type: 'font-awesome'}}
-                          title='Correct' style={{marginBottom: 10}}/>
-                  <Button backgroundColor="red"
-                          icon={{name: 'thumbs-o-down', type: 'font-awesome'}}
-                          title='Incorrect'/>
+              {showSummary && this.renderSummary(summary)}
+              {!showSummary &&
+              <View>
+                  <Animated.View style={[backAnimatedStyle, flipCard, flipCardBack]}>
+                      <Text style={title}>{question.answer}</Text>
+                      <TouchableOpacity onPress={() => this.flipCard('back')}>
+                          <Text style={linkText}>Question</Text>
+                      </TouchableOpacity>
+                  </Animated.View>
+                  <Animated.View style={[frontAnimatedStyle, flipCard]}>
+                      <Text style={title}>{question.question}</Text>
+                      <TouchableOpacity onPress={() => this.flipCard('front')}>
+                          <Text style={linkText}>Answer</Text>
+                      </TouchableOpacity>
+                  </Animated.View>
+
+                  <View style={buttonContainer}>
+                      <Button backgroundColor="green"
+                              icon={{name: 'thumbs-o-up', type: 'font-awesome'}}
+                              onPress={onCorrect}
+                              title='Correct' style={{marginBottom: 10}}/>
+                      <Button backgroundColor="red"
+                              onPress={onIncorrect}
+                              icon={{name: 'thumbs-o-down', type: 'font-awesome'}}
+                              title='Incorrect'/>
+                  </View>
               </View>
+              }
+
 
           </View>
         );
@@ -131,10 +154,10 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     flipCardBack: {
-        position: 'absolute',
-        top: 0,
-        left: 25,
-        right: 25,
+        // position: 'absolute',
+        // top: 0,
+        // left: 25,
+        // right: 25,
     }
 });
 
