@@ -59,7 +59,6 @@ class Card extends Component {
             title,
             linkText,
             buttonContainer,
-            summaryContainer,
             flipCard,
             flipCardBack
         } = styles;
@@ -80,7 +79,7 @@ class Card extends Component {
 
         return (
           <View style={container}>
-              {showSummary && <QuizSummary style={summaryContainer} {...summary}/>}
+              {showSummary && <QuizSummary {...summary}/>}
               {!showSummary &&
               <View>
                   <Animated.View style={[backAnimatedStyle, flipCard, flipCardBack]}>
@@ -152,9 +151,6 @@ const styles = StyleSheet.create({
         // top: 0,
         // left: 25,
         // right: 25,
-    },
-    summaryContainer: {
-        marginTop: 20
     }
 });
 
