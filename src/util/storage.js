@@ -19,20 +19,21 @@ export const getDeck = async title => {
 
 export const saveDeckTitle = async title => {
     const newDeck = {
-        decks: {
-            [title]: {
-                title,
-                questions: []
-            }
-        }
+        title,
+        questions: []
     };
 
-    await AsyncStorage.mergeItem(
-      STORAGE_KEY,
-      JSON.stringify(newDeck)
-    );
+    const decks = await getDecks();
+    const deck = decks["decks"][title];
 
-    return newDeck.decks;
+    if (deck) {
+        return decks["decks"];
+    }
+
+    decks["decks"][title] = newDeck;
+    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(decks));
+
+    return decks["decks"];
 };
 
 export const addCardToDeck = async (title, {question, answer}) => {
