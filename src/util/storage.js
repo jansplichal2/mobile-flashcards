@@ -1,7 +1,7 @@
 import {AsyncStorage} from 'react-native';
-import {decks} from './store';
+import {decks} from '../store';
 
-const STORAGE_KEY = '@flashcards-storage:key';
+const STORAGE_KEY = '@flashcards:storage';
 
 export const createStore = async () => {
     await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(decks));

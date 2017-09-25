@@ -8,6 +8,8 @@ import {
 } from 'react-native';
 
 import {Button} from 'react-native-elements';
+import QuizSummary from './QuizSummary';
+
 
 class Card extends Component {
 
@@ -48,16 +50,7 @@ class Card extends Component {
 
     }
 
-    renderSummary(summary) {
-        const {correct, incorrect} = summary;
-        return (
-          <View>
-              <Text>Correct: {correct}</Text>
-              <Text>Wrong: {incorrect}</Text>
-              <Text>Success rate: {+(100 * (correct / (correct + incorrect))).toFixed(2)}%</Text>
-          </View>
-        );
-    }
+
 
 
     render() {
@@ -66,6 +59,7 @@ class Card extends Component {
             title,
             linkText,
             buttonContainer,
+            summaryContainer,
             flipCard,
             flipCardBack
         } = styles;
@@ -86,7 +80,7 @@ class Card extends Component {
 
         return (
           <View style={container}>
-              {showSummary && this.renderSummary(summary)}
+              {showSummary && <QuizSummary style={summaryContainer} {...summary}/>}
               {!showSummary &&
               <View>
                   <Animated.View style={[backAnimatedStyle, flipCard, flipCardBack]}>
@@ -158,6 +152,9 @@ const styles = StyleSheet.create({
         // top: 0,
         // left: 25,
         // right: 25,
+    },
+    summaryContainer: {
+        marginTop: 20
     }
 });
 

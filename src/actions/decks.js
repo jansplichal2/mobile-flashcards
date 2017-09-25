@@ -1,5 +1,5 @@
 import {GET_DECK, GET_ALL_DECKS, ADD_NEW_DECK} from './types';
-import * as storage from '../storage';
+import * as storage from '../util/storage';
 
 
 const getAllDecks = decks => ({

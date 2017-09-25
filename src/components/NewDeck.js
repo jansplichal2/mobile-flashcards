@@ -11,14 +11,15 @@ import {
     FormValidationMessage,
     Button
 } from 'react-native-elements';
-
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {connect} from 'react-redux';
 import {addNewDeck} from '../actions/decks';
 
 class Deck extends Component {
 
     static navigationOptions = {
-        title: 'New Deck'
+        tabBarLabel: 'New Deck',
+        tabBarIcon: <MaterialCommunityIcons name='new-box' size={30}/>
     };
 
     constructor(props) {

@@ -1,5 +1,5 @@
 import {ADD_NEW_CARD, GET_DECK} from './types';
-import * as storage from '../storage';
+import * as storage from '../util/storage';
 
 
 const newCard = (deck) => ({

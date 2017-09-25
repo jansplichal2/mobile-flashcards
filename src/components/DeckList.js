@@ -7,6 +7,7 @@ import {
     StyleSheet
 } from 'react-native';
 import {NavigationActions} from 'react-navigation';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {connect} from 'react-redux';
 import _ from 'lodash';
 
@@ -15,7 +16,8 @@ import {fetchAllDecks, fetchDeck} from '../actions/decks';
 
 class DeckList extends Component {
     static navigationOptions = {
-        title: 'Decks'
+        tabBarLabel: 'Decks',
+        tabBarIcon: <MaterialCommunityIcons name='cards' size={30}/>
     };
 
     constructor(props) {

@@ -12,6 +12,9 @@ import {
 import {connect} from 'react-redux';
 import _ from 'lodash';
 
+import {clearNotification, setNotification} from '../util/notification';
+
+
 class Deck extends Component {
     static navigationOptions = ({navigation}) => {
         return {
@@ -40,6 +43,9 @@ class Deck extends Component {
               </View>
               <View style={buttonContainer}>
                   <Button title="Start quiz" onPress={() => {
+                      clearNotification().then(() => {
+                          setNotification();
+                      });
                       navigate('Quiz', {title})
                   }}/>
               </View>
