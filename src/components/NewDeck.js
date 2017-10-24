@@ -62,7 +62,7 @@ class Deck extends Component {
                       </FormValidationMessage>
                   </View>
                   <View style={[inputContainer, {marginTop: 30}]}>
-                      <Button title="Submit" onPress={this.createNewDeck}/>
+                      <Button title="Create Deck" onPress={this.createNewDeck}/>
                   </View>
               </View>
           </View>
