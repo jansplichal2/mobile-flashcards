@@ -6,6 +6,8 @@ Project created as part of Udacity's react nanodegree program.
 * Install packages: `yarn install`
 * Launch server: `yarn start`
 
+## Supported platform
+* The code has been tested on ios and android emulators
 
 ## Authors
 * **Jan Splichal**

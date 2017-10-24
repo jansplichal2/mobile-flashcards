@@ -3,8 +3,7 @@ import {
     View,
     Text,
     TouchableOpacity,
-    StyleSheet,
-    Animated
+    StyleSheet
 } from 'react-native';
 
 import {Button} from 'react-native-elements';
@@ -15,38 +14,18 @@ class Card extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            flipped: false
+        };
+
         this.flipCard = this.flipCard.bind(this);
     }
 
-    componentWillMount() {
-        this.animatedValue = new Animated.Value(0);
-
-        this.frontInterpolate = this.animatedValue.interpolate({
-            inputRange: [0, 180],
-            outputRange: ['0deg', '180deg']
-        });
-
-        this.backInterpolate = this.animatedValue.interpolate({
-            inputRange: [0, 180],
-            outputRange: ['180deg', '360deg']
-        });
-    }
-
-    flipCard(direction) {
-        console.log('Flipping ', direction);
-        if (direction === 'front') {
-            Animated.spring(this.animatedValue, {
-                toValue: 180,
-                friction: 8,
-                tension: 10
-            }).start();
-        } else {
-            Animated.spring(this.animatedValue, {
-                toValue: 0,
-                friction: 8,
-                tension: 10
-            }).start();
-        }
+    flipCard() {
+        this.setState(prevState => ({
+            flipped: !prevState.flipped
+        }));
     }
 
     render() {
@@ -55,41 +34,39 @@ class Card extends Component {
             title,
             linkText,
             buttonContainer,
-            flipCard,
-            flipCardBack
+            flipCard
         } = styles;
 
-        const frontAnimatedStyle = {
-            transform: [
-                {rotateY: this.frontInterpolate}
-            ]
-        };
-
-        const backAnimatedStyle = {
-            transform: [
-                {rotateY: this.backInterpolate}
-            ]
-        };
-
-        const {question, onCorrect, onIncorrect, showSummary, summary} = this.props;
+        const {
+            question,
+            onCorrect,
+            onIncorrect,
+            showSummary,
+            summary,
+            goBack,
+            reset
+        } = this.props;
 
         return (
           <View style={container}>
-              {showSummary && <QuizSummary {...summary}/>}
+              {showSummary && <QuizSummary reset={reset} goBack={goBack} {...summary}/>}
               {!showSummary &&
               <View>
-                  <Animated.View style={[backAnimatedStyle, flipCard, flipCardBack]}>
-                      <Text style={title}>{question.answer}</Text>
-                      <TouchableOpacity onPress={() => this.flipCard('back')}>
-                          <Text style={linkText}>Question</Text>
-                      </TouchableOpacity>
-                  </Animated.View>
-                  <Animated.View style={[frontAnimatedStyle, flipCard]}>
-                      <Text style={title}>{question.question}</Text>
-                      <TouchableOpacity onPress={() => this.flipCard('front')}>
-                          <Text style={linkText}>Answer</Text>
-                      </TouchableOpacity>
-                  </Animated.View>
+                  {this.state.flipped ?
+                    <View style={flipCard}>
+                        <Text style={title}>{question.answer}</Text>
+                        <TouchableOpacity onPress={() => this.flipCard()}>
+                            <Text style={linkText}>Question</Text>
+                        </TouchableOpacity>
+                    </View>
+                    :
+                    <View style={flipCard}>
+                        <Text style={title}>{question.question}</Text>
+                        <TouchableOpacity onPress={() => this.flipCard()}>
+                            <Text style={linkText}>Answer</Text>
+                        </TouchableOpacity>
+                    </View>
+                  }
 
                   <View style={buttonContainer}>
                       <Button backgroundColor="green"
@@ -134,18 +111,12 @@ const styles = StyleSheet.create({
         marginRight: 40
     },
     flipCard: {
-        backfaceVisibility: 'hidden',
         alignSelf: 'stretch',
         marginRight: 25,
         marginLeft: 25,
         marginTop: 20
     },
-    flipCardBack: {
-        // position: 'absolute',
-        // top: 0,
-        // left: 25,
-        // right: 25,
-    }
+
 });
 
 export default Card;

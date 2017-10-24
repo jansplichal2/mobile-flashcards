@@ -25,6 +25,7 @@ class Quiz extends Component {
         };
         this.onQuestionCorrect = this.onQuestionCorrect.bind(this);
         this.onQuestionIncorrect = this.onQuestionIncorrect.bind(this);
+        this.resetQuiz = this.resetQuiz.bind(this);
     }
 
     onQuestionCorrect() {
@@ -53,9 +54,19 @@ class Quiz extends Component {
         });
     }
 
+    resetQuiz() {
+        this.setState({
+            index: 0,
+            correct: 0,
+            incorrect: 0,
+            showSummary: false
+        });
+    }
+
     render() {
         const {counter, container} = styles;
         const {deck} = this.props;
+        const {goBack} = this.props.navigation;
         const {index, correct, incorrect, showSummary} = this.state;
 
         return (
@@ -63,10 +74,13 @@ class Quiz extends Component {
               {!showSummary && <Text style={counter}>{index + 1} / {_.size(deck.questions)}</Text>}
               <Card
                 showSummary={showSummary}
+                goBack={goBack}
                 summary={{correct, incorrect}}
                 question={deck.questions[index]}
                 onCorrect={this.onQuestionCorrect}
-                onIncorrect={this.onQuestionIncorrect}/>
+                onIncorrect={this.onQuestionIncorrect}
+                reset={this.resetQuiz}
+              />
           </View>
         );
     }
