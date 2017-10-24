@@ -47,11 +47,7 @@ class Card extends Component {
                 tension: 10
             }).start();
         }
-
     }
-
-
-
 
     render() {
         const {
@@ -107,8 +103,6 @@ class Card extends Component {
                   </View>
               </View>
               }
-
-
           </View>
         );
     }
