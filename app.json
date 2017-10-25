@@ -1,5 +1,7 @@
 {
+  "name": "mobile-flashcards",
+  "displayName": "mobile-flashcards",
   "expo": {
-    "sdkVersion": "20.0.0"
+    "sdkVersion": "22.0.0"
   }
 }
