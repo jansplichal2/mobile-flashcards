@@ -70,12 +70,10 @@ class Card extends Component {
 
                   <View style={buttonContainer}>
                       <Button backgroundColor="green"
-                              icon={{name: 'thumbs-o-up', type: 'font-awesome'}}
                               onPress={onCorrect}
                               title='Correct' style={{marginBottom: 10}}/>
                       <Button backgroundColor="red"
                               onPress={onIncorrect}
-                              icon={{name: 'thumbs-o-down', type: 'font-awesome'}}
                               title='Incorrect'/>
                   </View>
               </View>
